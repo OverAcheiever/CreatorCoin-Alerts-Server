@@ -21,7 +21,7 @@ wss.on('connection', (ws, req) =>{
     });
 });
 // SERVER
-app.post("/", (req, res) => {
+app.post("/POST/rally/creatorcoin/donate", (req, res) => {
     let payload = req.body
     console.log(payload);
     res.status(200);

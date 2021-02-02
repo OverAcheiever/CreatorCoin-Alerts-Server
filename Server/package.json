@@ -1,0 +1,25 @@
+{
+  "name": "rally-alerts-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OverAcheiever/rally-alerts-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OverAcheiever/rally-alerts-server/issues"
+  },
+  "homepage": "https://github.com/OverAcheiever/rally-alerts-server#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.4.2"
+  }
+}
