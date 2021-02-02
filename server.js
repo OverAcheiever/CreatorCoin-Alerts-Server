@@ -13,15 +13,15 @@ var current_users = 0
 wss.on('connection', (ws, req) =>{
     total_users ++;
     current_users ++;
-    console.log(`Client Connected, Total Online: ${current_users}`);
+    console.log(`Online: ${current_users}, Total: ${total_users}`);
     ws.send("Connection Sucessful");
     ws.on('close', function () { 
         current_users --;
-        console.log(`Client Disconnected, Total Online: ${current_users}`)
+        console.log(`Online: ${current_users}`)
     });
 });
 // SERVER
-app.post("/POST/rally/creatorcoin/donate", (req, res) => {
+app.post("/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES", (req, res) => {
     let payload = req.body
     console.log(payload);
     res.status(200);
