@@ -15,10 +15,11 @@ wss.on('connection', (ws, req) =>{
     current_users ++;
     console.log(`Online: ${current_users}, Total: ${total_users}`);
     ws.send("Connection Sucessful");
-    ws.on('close', function () { 
-        current_users --;
-        console.log(`Online: ${current_users}`)
-    });
+});
+
+wss.on('close', function () { 
+    current_users --;
+    console.log(`Online: ${current_users}`)
 });
 // SERVER
 app.post("/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES", (req, res) => {
