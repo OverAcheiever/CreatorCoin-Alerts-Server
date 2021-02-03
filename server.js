@@ -2,7 +2,7 @@ const express = require('express'),
       bodyParser = require("body-parser"),
       app = express(),
       WebSocket = require('ws'),
-      wss = new WebSocket.Server({ noServer: true, path: '/rally/alerts/websocket' }),
+      wss = new WebSocket.Server({ noServer: true, path: '/rally/alerts/websocket'}),
       server = app.listen(3000, () => console.log('Server is live at 3000'));
 
       app.use(bodyParser.json());
