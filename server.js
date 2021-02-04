@@ -1,10 +1,10 @@
 const express = require('express'),
       bodyParser = require("body-parser"),
+      port = process.env.PORT || 80;
       app = express(),
       WebSocket = require('ws'),
       wss = new WebSocket.Server({ noServer: true, path: '/rally/alerts/websocket'}),
-      server = app.listen(3000, () => console.log('Server is live at 3000'));
-
+      server = app.listen(port, () => console.log(`Server is live at ${port}`));
       app.use(bodyParser.json());
 
 var current_users = 0
