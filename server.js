@@ -37,9 +37,6 @@ server.on('upgrade', (request, socket, head) => {
 //
 function echo(webhook){
     wss.clients.forEach(function each(client) {
-        let name = webhook.data.fromUsername
-        let amount = String(webhook.data.amountOfCoin)
-        let coin = webhook.coinKind
-        client.send(JSON.stringify({name,amount,coin}));
+        client.send(JSON.stringify(webhook));
     });
 };
