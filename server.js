@@ -39,6 +39,7 @@ function echo(webhook){
     wss.clients.forEach(function each(client) {
         let name = webhook.data.fromUsername
         let amount = String(webhook.data.amountOfCoin)
-        client.send(JSON.stringify({name,amount}));
+        let coin = webhook.coinKind
+        client.send(JSON.stringify({name,amount,coin}));
     });
 };
