@@ -17,7 +17,7 @@ wss.on('connection', (ws, req) =>{
     ws.send("Connection Sucessful");
 });
 
-wss.on('close', function () { 
+wss.on('close', function () {
     current_users --;
     console.log(`Online: ${current_users}`)
 });
@@ -36,7 +36,9 @@ server.on('upgrade', (request, socket, head) => {
 });
 //
 function echo(webhook){
-    wss.clients.forEach(function each(client){
-        client.send(JSON.stringify(webhook));
+    wss.clients.forEach(function each(client) {
+        let name = webhook.data.fromUsername
+        let amount = String(webhook.data.amountOfCoin)
+        client.send(JSON.stringify({name,amount}));
     });
 };
