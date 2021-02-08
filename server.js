@@ -34,7 +34,7 @@ server.on('upgrade', (request, socket, head) => {
     wss.emit('connection', socket, request);
   });
 });
-//
+// Send Webhook to Websocket Clients
 function echo(webhook){
     wss.clients.forEach(function each(client) {
         client.send(JSON.stringify(webhook));
