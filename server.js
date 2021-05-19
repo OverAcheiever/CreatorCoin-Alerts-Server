@@ -4,7 +4,7 @@ const express = require('express'),
     port = process.env.PORT || 80,
     WebSocket = require('ws'),
     wss = new WebSocket.Server({ noServer: true, path: '/websocket' }),
-    server = app.listen(port, () => console.log(`Server is live at ${port}`));
+    server = app.listen(port, () => console.log(`Server is live at http://localhost:${port}`));
 app.use(bodyParser.json());
 
 var current_users = 0,
@@ -25,7 +25,7 @@ wss.on('close', function() {
 app.post("/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES", (req, res) => {
     let payload = req.body;
     console.log(payload);
-    res.sendStatus(200).send(payload)
+    res.send(payload)
     echo(payload);
 });
 server.on('upgrade', (request, socket, head) => {
