@@ -1,9 +1,7 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server, {
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
     path: "/",
     cors: {
         origins: "*:*",
@@ -36,10 +34,4 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 });
 
-app.listen(webhook_port, () => {
-    console.log(`WEBSOCKET SERVR: http://localhost:${websocket_port}`)
-})
-
-server.listen(websocket_port, () => {
-    console.log(`WEBHOOK SERVER: http://localhost:${webhook_port}`);
-});
+server.listen(3000 || process.env.PORT)
