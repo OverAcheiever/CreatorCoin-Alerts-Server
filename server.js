@@ -1,41 +1,45 @@
-const express = require('express'),
-    app = express(),
-    bodyParser = require("body-parser"),
-    port = process.env.PORT || 80,
-    WebSocket = require('ws'),
-    wss = new WebSocket.Server({ noServer: true, path: '/websocket' }),
-    server = app.listen(port, () => console.log(`Server is live at http://localhost:${port}`));
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server, {
+    path: "/",
+    cors: {
+        origins: "*:*",
+        methods: ["GET", "POST"]
+    },
+    transports: ['websocket', 'polling']
+});
+const bodyParser = require("body-parser")
 app.use(bodyParser.json());
+const websocket_port = 3000 || process.env.PORT;
+const webhook_port = 9000 || process.env.PORT;
 
-var current_users = 0,
-    total_users = 0;
-
-wss.on('connection', (ws, req) => {
-    total_users++;
-    current_users++;
-    console.log(`Online: ${current_users}, Total: ${total_users}`);
-    ws.send("Connection Sucessful");
+app.get('/', (res) => {
+    res.sendStatus(401)
 });
 
-wss.on('close', function() {
-    current_users--;
-    console.log(`Online: ${current_users}`);
+app.post('/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES', (req, res) => {
+    console.log(req.body);
+    res.sendStatus(200);
+    io.emit("donate", req.body)
+})
+
+app.post('/POST/rally/creatorcoin/purchase/7ZLUQH7BDQKVSAGM', (req, res) => {
+    console.log(req.body);
+    res.sendStatus(200);
+    io.emit("purchase", req.body)
+})
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
 });
 
-app.post("/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES", (req, res) => {
-    let payload = req.body;
-    console.log(payload);
-    res.send(payload)
-    echo(payload);
-});
-server.on('upgrade', (request, socket, head) => {
-    wss.handleUpgrade(request, socket, head, socket => {
-        wss.emit('connection', socket, request);
-    });
-});
+app.listen(webhook_port, () => {
+    console.log(`WEBSOCKET SERVR: http://localhost:${websocket_port}`)
+})
 
-function echo(webhook) {
-    wss.clients.forEach(function each(client) {
-        client.send(JSON.stringify(webhook));
-    });
-};
+server.listen(websocket_port, () => {
+    console.log(`WEBHOOK SERVER: http://localhost:${webhook_port}`);
+});
