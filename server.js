@@ -22,15 +22,15 @@ app.get('/api/code/alerts', (req, res) => {
 })
 
 app.post('/POST/rally/creatorcoin/donate/OARPGGRRBPMKSIES', (req, res) => {
-    io.emit("donate", req.body)
-    console.log(req.body);
     res.sendStatus(200);
+    console.log(req.body);
+    emit(req.body, "donation");
 })
 
 app.post('/POST/rally/creatorcoin/purchase/7ZLUQH7BDQKVSAGM', (req, res) => {
     console.log(req.body);
     res.sendStatus(200);
-    emit(req.body);
+    emit(req.body, "purchase");
 })
 
 io.on('connection', (socket) => {
@@ -41,6 +41,6 @@ server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
 });
 
-function emit(body) {
-    io.emit("donate", body)
+function emit(body, eventType) {
+    io.emit(eventType, body)
 }
