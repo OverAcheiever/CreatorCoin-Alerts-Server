@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
   res.sendStatus(401);
 });
 
-app.get("/api/code/alerts", cors(), (req, res) => {
+app.get("/api/code/alerts", (req, res) => {
   fs.readFile("alerts.txt", "utf8", function (err, data) {
     res.send({
       version: 2.0,
