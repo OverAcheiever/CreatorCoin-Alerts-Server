@@ -1,4 +1,5 @@
 var fs = require("fs");
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
@@ -9,6 +10,8 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
+app.use(cors());
+
 
 const PORT = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
@@ -19,12 +22,11 @@ app.get("/", function (req, res) {
   res.sendStatus(401);
 });
 
-app.get("api/code/alerts", (req, res) => {
+app.get("/api/code/alerts", cors(), (req, res) => {
   fs.readFile("alerts.txt", "utf8", function (err, data) {
     res.send({
-      verion: 2.0,
-      code: data,
-    });
+      version: 2.0,
+ilo     });
   });
 });
 
