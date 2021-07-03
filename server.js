@@ -26,7 +26,8 @@ app.get("/api/code/alerts", (req, res) => {
   fs.readFile("alerts.txt", "utf8", function (err, data) {
     res.send({
       version: 2.0,
-ilo     });
+      code: data
+     });
   });
 });
 
